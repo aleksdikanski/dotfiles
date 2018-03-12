@@ -1,0 +1,137 @@
+snippet am "AndroidManifest - Create a plain minimal AndroidManifest" !b 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="${1:de.dik}">
+
+	<application android:allowBackup="true"
+		android:label="${2:@string/appName}"
+		android:description="${3:@string/appDescription}"
+		android:icon="${4:@string/appIcon}"
+		android:theme="${5:@style/AppTheme}">
+	</application>
+
+</manifest>
+endsnippet
+
+snippet amui "AndroidManifest - manifest sharedUserId attribute" !b
+android:sharedUserId="$1"
+endsnippet
+
+snippet amul "AndroidManifest - manifest sharedUserLabel attribute" !b
+android:sharedUserLabel="$1"
+endsnippet
+
+snippet amvc "AndroidManifest - manifest versionCode attribute" !b
+android:versionCode="$1"
+endsnippet
+
+snippet amvn "AndroidManifest - manifest versionName attribute" !b
+android:versionName="$1"
+endsnippet
+
+snippet amil "Android - manifest installLocation attribute" !b
+android:installLocation="${1:auto}"
+endsnippet
+
+snippet aapatr "AndroidManifest - application allowTaskReparenting attribute" !b
+android:allowTaskReparenting="${1:false}"
+endsnippet
+
+snippet aapab "AndroidManifest - application allowbackup attribute" !b
+android:allowbackup="${1:true}"
+endsnippet
+
+snippet aapba "AndroidManifest - application backupAgent attribute" !b
+android:backupAgent="${1:.MyBackupAgent}"
+endsnippet
+
+snippet aapde "AndroidManifest - application debuggable attribute" !b
+android:debuggable="${1:false}"
+endsnippet
+
+snippet aapen "AndroidManifest - application enabled attribute" !b
+android:enabled="${1:true}"
+endsnippet
+
+snippet aaphc "AndroidManifest - application hasCode attribute" !b
+android:enable="${1:true}"
+endsnippet
+
+snippet aaphw "AndroidManifest - application hardwareAccelerated attribute" !b
+android:hardwareAccelerated="${1:false}"
+endsnippet
+
+snippet aapic "AndroidManifest - application icon attribute" !b
+android:icon="${1:@drawable/appIcon}"
+endsnippet
+
+snippet aapkar "AndroidManifest - application killAfterRestore attribute" !b
+android:killAfterRestore="${1:true}"
+endsnippet
+
+snippet aaplh "AndroidManifest - application largeHeap attribute" !b
+android:largeHeap="${1:false}"
+endsnippet
+
+snippet aapla "AndroidManifest - application label attribute" !b
+android:label="${1:@string/appName}"
+endsnippet
+
+snippet aaplo "AndroidManifest - application logo attribute" !b
+android:logo="${1:@drawable/appLogo}"
+endsnippet
+
+snippet aapmsa "AndroidManifest - application manageSpaceActivity" !b
+android:manageSpaceActivity="$1"
+endsnippet
+
+snippet aapna "AndroidManifest - application name attribute" !b
+android:name="$1"
+endsnippet
+
+snippet aappe "AndroidManifest - application permission attribute" !b
+android:permission="$1"
+endsnippet
+
+snippet aappt "AndroidManifest - application persistent attribute" !b
+android:persistent="${1:false}"
+endsnippet
+
+snippet aappr "AndroidManifest - application process attribute" !b
+android:process="$1"
+endsnippet
+
+snippet aaprav "AndroidManifest - application restoreAnyVersion attribute" !b
+android:restoreAnyVersion="${1:false}"
+endsnippet
+
+snippet aaprat "AndroidManifest - application requiredAccoutType attribute" !b
+android:requiredAccountType="${1:null}"
+endsnippet
+
+snippet aapreat "AndroidManifest - application restrictedAccountType attribute" !b
+android:restrictedAccountType="${1:null}"
+endsnippet
+
+snippet aaprtl "AndroidManifest - application supportsRtl attribute" !b
+android:supportsRtl="${1:false}"
+endsnippet
+
+snippet aapta "AndroidManifest - application taskAffinity attribute " !b
+android:taskAffinity="${1:packageName}"
+endsnippet
+
+snippet aapto "AndroidManifest - application testOnly attribute" !b
+android:testOnly="${1:true}"
+endsnippet
+
+snippet aapth "AndroidManifest - application theme attribute" !b
+android:theme="$1"
+endsnippet
+
+snippet aapui "AndroidManifest - application uiOptions attribute" !b
+android:uiOptions="${1:none}"
+endsnippet
+
+snippet aapvsm "AndroidManifest - application vmSafeMode attribute" !b
+android:vmSafeMode="${1:false}"
+endsnippet
