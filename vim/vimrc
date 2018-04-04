@@ -1,315 +1,22 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" initialize pathogen bundle manager for vim
-silent! call pathogen#infect()
-silent! call pathogen#helptags()
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set history=1000	" keep 1000 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set hidden 		" Manage buffers more efficiently
-set wildmenu 		" Show more options on command completion
-set ignorecase 		" Smarter seaches
-set smartcase
-set title 		" Set the title in the terminal
-set scrolloff=3 	" Keep context around the cursor
-set listchars=tab:>-,trail:.,eol:$ "Catch trailing whitespace
-set guifont=Source\ Code\ Pro\ for\ Powerline,Light:h12
-
-" 
-" Manage Plugins with vundle
-"
-filetype off "required by Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Let Vundle manage itself
-Plugin 'gmarik/Vundle.vim'
-
-" Plugins
-" Improving Vim behavior
-Plugin 'kien/ctrlp.vim'       " Fuzzy finder
-Plugin 'Raimondi/delimitMate' " Close matching brackets
-Plugin 'airblade/vim-rooter'  " Change workding dir
-Plugin 'edsono/vim-matchit'   " Match more with %
-Plugin 'justinmk/vim-sneak'   " Motions 
-
-" UI improvements
-Plugin 'airblade/vim-gitgutter'  " Show git diffs in the gutter
-Plugin 'Yggdroot/indentLine'     " Visualize indents
-Plugin 'itchyny/lightline.vim'   " Lightweight & configurable statusline
-Plugin 'altercation/vim-colors-solarized' " colorscheme
-Plugin 'regedarek/ZoomWin'       " Toggle one or multiple windows
-Plugin 'kien/rainbow_parentheses.vim' " Change bracket color per depth level
-
-" File browsing
-Plugin 'scrooloose/nerdtree'  " Sidebar filebrowser
-"Plugin 'project'
-Plugin 'majutsushi/tagbar'    " Display tags
-
-" SCM
-Plugin 'tpope/vim-fugitive'   " Git wrapper
-
-" Code completion
-Plugin 'Valloric/YouCompleteMe' " Code completion
-Plugin 'marijnh/tern_for_vim'   " Code complition for JavaScript
-Plugin 'SirVer/Ultisnips'       " Snippets
-Plugin 'mattn/emmet-vim'        " HTML abbreviations expanding
-Plugin 'honza/vim-snippets'     " Snippets library
-Plugin 'tpope/vim-surround'     " Surround everything with everything
-
-" Syntax Check
-Plugin 'scrooloose/syntastic'   " Syntax check and highlighting
-
-" Commenting
-Plugin 'scrooloose/nerdcommenter' " Toggle comments
-
-" Line numbers
-Plugin 'myusuf3/numbers.vim'      " Switch line number mode
-
-" JavaScript Plugins
-Plugin 'Shutnik/jshint2.vim'      " Code analysis for Javascript
-Plugin 'elzr/vim-json'            " Editing of JSON files
-
-" HTML5
-Plugin 'othree/html5.vim'         " HTML5 Sytnax support
-Plugin 'othree/html5-syntax.vim'  " 
-
-" Scala Development
-Plugin 'derekwyatt/vim-scala'     " Scala syntax highlighting
-Plugin 'ktvoelker/sbt-vim'        " SBT bridge
-Plugin 'mpollmeier/vim-scalaConceal' " Display Unicode symbols for function names
-Plugin 'sombr/vim-scala-worksheet' " Scala Worksheets
-
-" Polymer IDE
-Plugin 'webdesus/polymer-ide.vim'
-
-" Elixir
-Plugin 'elixir-lang/vim-elixir'
-
-" Gradle
-Plugin 'tfnico/vim-gradle'        " Gradle wrapper
-
-" Clojure
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
-Plugin 'venantius/vim-eastwood'
-Plugin 'venantius/vim-cljfmt'
-Plugin 'vim-scripts/paredit.vim'
-
-" All of the Plugins must be added
-" before this line
-call vundle#end()
+" Colors {{{
+syntax enable
+set background=dark
+colorscheme solarized
+" }}}
+" Spaces & Tabs {{{
+set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
+set autoindent
 filetype plugin indent on
-
-let g:lightline = {
- \ 'colorscheme': 'solarized',
-  \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-    \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-  \ },
-  \ 'component_function': {
-  \   'fugitive': 'LightlineFugitiveHead',
-  \   'filename': 'LightlineFilename',
-  \   'fileformat': 'LightlineFileformat',
-  \   'filetype': 'LightlineFiletype',
-  \   'fileencoding': 'LightlineFileencoding',
-  \   'mode': 'LightlineMode',
-  \   'ctrlpmark': 'CtrlPMark',
-  \ },
-  \ 'component_expand': {
-  \   'syntastic': 'SyntasticStatuslineFlag',
-  \ },
-  \ 'component_type': {
-  \   'syntastic': 'error',
-  \ },
-  \ 'separator': { 'left': '', 'right': ''},
-  \ 'subseparator': { 'left': '', 'right': '' }
-  \ }
-
-function! LightlineSetModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return "-"
-  endif
-endfunction
-
-function! LightlineSetReadOnly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightlineFilename()
-  let fname = expand('%:t')
-  return fname == 'ControlP' ? g:lightline.ctrlp_item :
-  	\ fname == '__Tagbar__' ? g:lightline.fname :
-  	\ fname =~ '__Gundo\|NERD_tree' ? '' :
-  	\ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-  	\ &ft == 'unite' ? unite#get_status_string() :
-  	\ &ft == 'vimshell' ? vimshell#get_status_string() :
-  	\ ('' != LightlineSetReadOnly() ? LightlineSetReadOnly() . ' ' : '') .
-  	\ ('' != fname ? fname : '[No Name]') .
-  	\ ('' != LightlineSetModified() ? ' ' . LightlineSetModified() : '')
-endfunction
-
-" Create Fugitive Component for lightline
-function! LigthlineFugitiveHead()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' &&  &ft !~?  'vimfiler'  && exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? ' '._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-  let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! CtrlPMark()
-  if expand('%:t') =~ 'ControlP'
-    call lightline#link('iR'[g:lightline.ctrlp_regex])
-    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-          \ , g:lightline.ctrlp_next], 0)
-  else
-    return ''
-  endif
-endfunction
-
-let g:ctrlp_status_func = {
-  \ 'main': 'CtrlPStatusFunc_1',
-  \ 'prog': 'CtrlPStatusFunc_2',
-  \ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-  return lightline#statusline(0)
-endfunction
-
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
-set noshowmode
-nmap <silent> <leader>s :set nolist!<CR>
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
-
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -319,110 +26,114 @@ if has("autocmd")
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-
   augroup END
-
-else
-
-  set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
 
+" Enable Indentation highlighting for tabbed indentation
+set list lcs=tab:\¦\ 
+" }}}
+" UI {{{
+set number
+set showcmd
+set title
+set cursorline
+set wildmenu
+set lazyredraw
+set showmatch
+set guifont=Source\ Code\ Pro\ for\ Powerline,Light:h12
+set ruler
+set scrolloff=3
+set listchars=tab:>-,trail:.
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+" }}}
+" Buffers {{{
+set hidden
+" }}}
+" Editing {{{
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" }}}
+" Searching {{{
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+"}}}
+" Command Line {{{
+set history=1000
+" }}}
+" Remappings {{{
+nnoremap j gj
+nnoremap k gk
+
+nmap <silent> <leader>s :set nolist!<CR>
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+" }}}
+" Leader Shortcuts {{{
+let mapleader="<"
+" }}}
+" Backups {{{
+if has("vms")
+    set nobackup " do not keep a backup file, use versions instead
+else
+    set backup
+    set backupdir=~/.vim-tmp/,~/.tmp,~/tmp,/var/tmp/,/tmp
+    set backupskip=/tmp/*,/private/tmp/*
+    set directory=~/.vim-tmp/,~/.tmp/,~/tmp,/var/tmp,/tmp
+    set writebackup
+endif
+" }}}
+" Custom Functions {{{
 " Open help files in separate tab
 augroup HelpInTabs
-	autocmd!
-	autocmd BufEnter *.txt call HelpInNewTab()
+    autocmd!
+    autocmd BufEnter *.txt call HelpInNewTab()
 augroup END
 
 " Only apply to help files
 function! HelpInNewTab ()
-	if &buftype == 'help'
-		" Convert the help window to a tab..
-		execute "normal \<C-W>T"
-	endif
+    if &buftype == 'help'
+        " Convert the help window to a tab..
+        execute "normal \<C-W>T"
+    endif
 endfunction
+
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+"}}}
+" Custom Commands {{{
+:command WQ wq
+:command Wq wq
+:command W w
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+        \ | wincmd p | diffthis
+endif
+" }}}
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
 endif
 
-" Enable syntax highlighting 
-syntax enable
-
-" Enable Indentation highlighting for tabbed indentation
-set list lcs=tab:\¦\ 
-
-" Set Solarized background
-set background=dark
-" Use the Solarized colorscheme
-colorscheme solarized
-
-" Put backup files into tmp directory
-set backupdir=~/Documents/Projekte/Development/_tmp
-
-" Format Scala Code
-au BufEnter *.scala setl formatprg=java\ -jar\ /usr/local/Cellar/scalariform/0.1.6/libexec/scalariform.jar\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentClassDeclaration\ +preserveDanglingCloseParenthesis\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
-
-" Basic mappings for increased workflow
-:command WQ wq
-:command Wq wq
-:command W w
-
-" Compile using Gradle
-map <F4> :w<CR> :compiler gradle<CR> :make test<CR>:cw 4<CR>
-
-" Set the Mapleader
-let mapleader="<"
-
-" Set plugin specific shortcut keys
-" <leader> n for NERDTree
-nmap <leader>n :NERDTreeToggle<CR>
-
-" <leader> o for tagbar
-nmap <leader>o :TagbarOpenAutoClose<CR>
-
-" Use <c-p> to open ctrlp
-let g:ctrlp_map='<c-p>'
-let g:ctrlp_cmd='CtrlP'
-" Ignore these directories
-set wildignore+=*/build/**
-" Disable caching
-let g:ctrlp_use_caching=0
-
-" Set ultisnips triggers
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "ultisnippets"]
-
-" Configuration for intendation highlighting IndentLine
-let g:indentLine_color_term=239
-let g:indentLine_color_gui='#09AA08'
-let g:indentLine_char='|'
-
-" Configuring DelimitMate
-let delimitMate_expand_cr=1
-
-let g:jsx_ext_required = 0
-
-" Enable javacomplete
-" Only do this when compiled with support for autocommands
-if has("autocmd")
-	autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-endif
-
-" Run JSHint on writing the current buffer containing javascript 
-autocmd! BufWritePost *.js JSHint 
-" Defaults: 8 spaces per tab
-set sw=8 ts=8 sts=0
-" Four space for CSS files
-autocmd FileType css :setlocal sw=4 ts=4 sts=4
-" Four spaces for tabs in Gradle build files
-autocmd Filetype groovy :setlocal sw=4 ts=4 sts=4
-autocmd FileType gradle :setlocal sw=4 ts=4 sts=4
-" Gradle build files are groovy files
-autocmd BufNewFile,BufRead *.gradle setf groovy
+" vim:foldmethod=marker:foldlevel=0
