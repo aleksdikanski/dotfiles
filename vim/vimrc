@@ -1,6 +1,8 @@
 " Plugins {{{1
 set nocompatible
 
+" Leader Shortcuts {{{1
+let mapleader="<"
 " Look and Feel {{{1
 " Colors {{{2
 " Deal with Colors in GUIs and Terminals{{{3
@@ -52,8 +54,6 @@ set scrolloff=3
 set listchars=tab:>-,trail:•
 " Enable Indentation highlighting for tabbed indentation
 "set list lcs=tab:\¦\ 
-
-
 " Editor Settings {{{1
 " Spaces & Tabs {{{2
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
@@ -90,21 +90,34 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+" center search results
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+" Splits{{{2
+set splitright
+set splitbelow
+" Diffing{{{1
+set diffopt+=iwhite
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 " Command Line {{{2
 set history=1000
 " Remappings {{{1
 nnoremap j gj
 nnoremap k gk
 
-nmap <silent> <leader>s :set nolist!<CR>
+nmap <silent> <leader>l :set list!<CR>
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
-
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
-" Leader Shortcuts {{{1
-let mapleader="<"
+
+nmap <silent> <leader>r :set relativenumber!<CR>
+
 " Backups {{{1
 if has("vms")
     set nobackup " do not keep a backup file, use versions instead
