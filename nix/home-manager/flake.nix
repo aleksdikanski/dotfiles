@@ -118,7 +118,31 @@
 
   programs.zsh = {
     enable = true;
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "docker"
+        "docker-compose"
+        "eza"
+        "fzf"
+        "git"
+        "git-commit"
+        "golang"
+        "gradle"
+        "history"
+        "kubectl"
+        "macos"
+        "rust"
+        "ssh"
+        "ssh-agent"
+        "tmux"
+        "zoxide"
+      ];
+      theme = "robbyrussell";
+    };
   };
+
+
 
   imports = [
     ../neovim

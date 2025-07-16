@@ -50,10 +50,10 @@
           alacritty
           bat
           colima
-          discord
+  #        discord
           docker
           eza
-          flyctl
+  #        flyctl
           fzf
           git
           go
@@ -64,6 +64,8 @@
           ripgrep
           vim
           zoxide
+          zsh
+          oh-my-zsh
         ];
       fonts.packages =
         with pkgs; [
@@ -72,7 +74,7 @@
 
       homebrew = {
         enable = true;
-        casks = [ "firefox" ];
+        casks = [ "firefox" "ghostty" ];
         brews = [ "mas" ];
 
         masApps = {

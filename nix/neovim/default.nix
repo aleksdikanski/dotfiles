@@ -2,7 +2,6 @@
 let
   treesitterWithGrammars = (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
     p.bash
-    p.bash
     p.comment
     p.css
     p.dockerfile
